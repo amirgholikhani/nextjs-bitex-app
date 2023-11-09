@@ -23,19 +23,17 @@ export default function Home() {
   return (
     <div className="h-full">
       <div className="w-full flex flex-col justify-center items-center gap-3 pt-10">
-          <div className="flex">
-            <BaseTextInput onChangeInput={handleChangeInput} />
+        <div className="flex">
+          <BaseTextInput onChangeInput={handleChangeInput} />
+        </div>
+        <List query={query} tagItems={tagItems} onSelectItem={onSelectItem} />
+        <div className="flex">
+          <div className="w-[200px] flex flex-row gap-1 flex-wrap">
+            {tagItems.map(tagItem => (
+              <TagInput key={tagItem.id} tag={tagItem} />
+            ))}
           </div>
-          <div className="flex">
-            <List query={query} tagItems={tagItems} onSelectItem={onSelectItem} />
-          </div>
-          <div className="flex">
-            <div className="w-[200px] flex flex-row gap-1 flex-wrap">
-              {tagItems.map(tagItem => (
-                <TagInput key={tagItem.id} tag={tagItem} />
-              ))}
-            </div>
-          </div>
+        </div>
       </div>
     </div>
   )

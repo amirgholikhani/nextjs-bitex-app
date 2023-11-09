@@ -37,7 +37,7 @@ function List({ query, onSelectItem, tagItems }: ListProps) {
   }, [])
 
   return (
-    <div>
+    <>
       {query && userDataFiltered.length > 0 && (
         <div className="w-[200px] rounded-lg bg-white p-2">
           {userDataFiltered.map(data => (
@@ -45,7 +45,7 @@ function List({ query, onSelectItem, tagItems }: ListProps) {
           ))}
         </div>
       )}
-    </div>
+    </>
   )
 }
 
