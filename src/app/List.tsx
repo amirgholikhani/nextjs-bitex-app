@@ -10,8 +10,8 @@ export interface DataType {
 
 interface ListProps {
   query: string
-  onSelectItem: (id: string) => void
-  tagItems: string[]
+  onSelectItem: (tag: DataType) => void
+  tagItems: DataType[]
 }
 
 function List({ query, onSelectItem, tagItems }: ListProps) {
@@ -26,8 +26,10 @@ function List({ query, onSelectItem, tagItems }: ListProps) {
 
   const userDataFiltered = userData.filter(data => data.label.toLowerCase().includes(query.toLowerCase()))
 
-  const toggleSelect = (id: string) => {
-    onSelectItem(id)
+  const tagItemsId = tagItems.map(tagItem => tagItem.id)
+
+  const toggleSelect = (tag: DataType) => {
+    onSelectItem(tag)
   }
 
   React.useEffect(() => {
@@ -39,7 +41,7 @@ function List({ query, onSelectItem, tagItems }: ListProps) {
       {query && userDataFiltered.length > 0 && (
         <div className="w-[200px] rounded-lg bg-white p-2">
           {userDataFiltered.map(data => (
-            <DataRow key={data.id} data={data} toggleSelect={toggleSelect} isSelected={tagItems.includes(data.id)} />
+            <DataRow key={data.id} data={data} toggleSelect={toggleSelect} isSelected={tagItemsId.includes(data.id)} />
           ))}
         </div>
       )}
@@ -50,19 +52,19 @@ function List({ query, onSelectItem, tagItems }: ListProps) {
 
 interface DataRowProps {
   data: DataType
-  toggleSelect: (id: string) => void
+  toggleSelect: (tag: DataType) => void
   isSelected: boolean
 }
 
 const DataRow = ({ data, toggleSelect, isSelected }: DataRowProps) => {
 
   const handleClick = () => {
-    toggleSelect(data.id)
+    toggleSelect(data)
   }
 
   return (
     <div
-      className={"hover:bg-[#F8F8F8] text-[12px] p-2 " + (isSelected ? 'bg-[#F8F8F8]' : '')}
+      className={"hover:bg-[#F8F8F8] text-[12px] cursor-pointer rounded p-2 " + (isSelected ? 'bg-[#F8F8F8]' : '')}
       key={data.id} onClick={handleClick}
     >
       {data.label}

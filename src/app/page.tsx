@@ -2,18 +2,21 @@
 
 import React from "react";
 import BaseTextInput from "@/app/BaseTextInput";
-import List from "@/app/List";
+import List, {DataType} from "@/app/List";
+import TagInput from "@/app/TagInput";
 
 export default function Home() {
   const [query, setQuery] = React.useState('')
-  const [tagItems, setTagItems] = React.useState<string[]>([])
+  const [tagItems, setTagItems] = React.useState<DataType[]>([])
 
   const handleChangeInput = (text: string) => {
     setQuery(text)
   }
 
-  const onSelectItem = (tag: string) => {
-    const filteredTagItems = tagItems.includes(tag) ? tagItems.filter(tagItem => tagItem !== tag) : [...tagItems, tag]
+  const tagItemsId = tagItems.map(tagItem => tagItem.id)
+
+  const onSelectItem = (tag: DataType) => {
+    const filteredTagItems = tagItemsId.includes(tag.id) ? tagItems.filter(tagItem => tagItem.id !== tag.id) : [...tagItems, tag]
     setTagItems([...filteredTagItems])
   }
 
@@ -27,7 +30,11 @@ export default function Home() {
             <List query={query} tagItems={tagItems} onSelectItem={onSelectItem} />
           </div>
           <div className="flex">
-            
+            <div className="w-[200px] flex flex-row gap-1 flex-wrap">
+              {tagItems.map(tagItem => (
+                <TagInput key={tagItem.id} tag={tagItem} />
+              ))}
+            </div>
           </div>
       </div>
     </div>
