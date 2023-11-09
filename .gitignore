@@ -16,6 +16,9 @@
 # production
 /build
 
+# jetBrains IDE
+/.idea
+
 # misc
 .DS_Store
 *.pem
